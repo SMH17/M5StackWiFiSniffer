@@ -4,7 +4,7 @@
    Link: https://github.com/SMH17/M5StackWiFiSniffer
 */
 
-#include <M5Stack.h>
+#include <M5StickC.h>
 
 #include "freertos/FreeRTOS.h"
 
@@ -199,12 +199,8 @@ void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type) {
 // the setup function runs once when you press reset or power the board
 
 void setup() {
-   /*
-    Power chip connected to gpio21, gpio22, I2C device
-    Set battery charging voltage and current
-    If used battery, please call this function in your project
-  */
-  M5.Power.begin();
+  // Initialize the M5StickC object
+  M5.begin();
 
   // LCD display
   M5.Lcd.print("Wifi Sniffer...");
