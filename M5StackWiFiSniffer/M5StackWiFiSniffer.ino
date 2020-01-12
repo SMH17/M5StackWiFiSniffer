@@ -6,8 +6,6 @@
 
 #include <M5Stack.h>
 
-#include "freertos/FreeRTOS.h"
-
 #include "esp_wifi.h"
 
 #include "esp_wifi_types.h"
@@ -18,20 +16,13 @@
 
 #include "esp_event_loop.h"
 
-#include "nvs_flash.h"
-
-#include "driver/gpio.h"
-
-
 
 #define WIFI_CHANNEL_SWITCH_INTERVAL  (500)
 
 #define WIFI_CHANNEL_MAX               (13)
 
 
-
 uint8_t level = 0, channel = 1;
-
 
 
 static wifi_country_t wifi_country = {.cc = "CN", .schan = 1, .nchan = 13};
@@ -89,8 +80,6 @@ esp_err_t event_handler(void *ctx, system_event_t *event) {
 
 
 void wifi_sniffer_init(void) {
-
-  nvs_flash_init();
 
   tcpip_adapter_init();
 
@@ -156,9 +145,8 @@ void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type) {
 
   const wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
 
-
-
-  printf("PACKET TYPE=%s, CHAN=%02d, RSSI=%02d,"
+  // Print captured packets on serial monitor
+  Serial.printf("PACKET TYPE=%s, CHAN=%02d, RSSI=%02d,"
 
          " ADDR1=%02x:%02x:%02x:%02x:%02x:%02x,"
 
@@ -199,6 +187,7 @@ void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type) {
 // the setup function runs once when you press reset or power the board
 
 void setup() {
+  
    /*
     Power chip connected to gpio21, gpio22, I2C device
     Set battery charging voltage and current
@@ -207,12 +196,18 @@ void setup() {
   M5.Power.begin();
 
   // LCD display
-  M5.Lcd.print("Wifi Sniffer...");
-
+  M5.Lcd.print("Wifi Sniffer\n Init...\n\n");
+  
+  // To allow print on serial monitor
+  Serial. begin(9600);
+  
   delay(10);
 
   wifi_sniffer_init();
 
+  // LCD display
+  M5.Lcd.print("Wifi Sniffer\n Running...");
+  
 }
 
 
