@@ -1,5 +1,5 @@
 /**
-   A M5StickC WiFi promiscuous mode packet sniffer, lazy adaptation of L. Podkalicki packet monitor.
+   A M5StickC WiFi promiscuous mode packet sniffer by S. Marano, lazy adaptation of L. Podkalicki packet monitor.
 
    Link: https://github.com/SMH17/M5StackWiFiSniffer
 */
@@ -195,17 +195,18 @@ void setup() {
   */
   M5.Power.begin();
 
-  // LCD display
+  // LCD display print
   M5.Lcd.print("Wifi Sniffer\n Init...\n\n");
   
   // To allow print on serial monitor
-  Serial. begin(9600);
+  Serial.begin(9600);
   
   delay(10);
 
+  // Start sniffer
   wifi_sniffer_init();
 
-  // LCD display
+  // LCD display print
   M5.Lcd.print("Wifi Sniffer\n Running...");
   
 }

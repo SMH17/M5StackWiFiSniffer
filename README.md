@@ -3,6 +3,8 @@ WiFi packet sniffer for network analysis
 
 A M5Stack\M5StickC WiFi promiscuous mode packet sniffer, lazy adaptation of L. Podkalicki packet monitor.
 
+You can check the output in the serial monitor.
+
 NOTE:
 The channels are switched in the loop every 500ms interval, because ESP32's WiFi module doesn’t implement any automated channel switching feature.
 
